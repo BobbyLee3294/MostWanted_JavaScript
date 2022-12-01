@@ -31,7 +31,31 @@ function app(people) {
         case "no":
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
-            searchResults = searchByTraits(people);
+                function searchByTraits(people) {
+                    let userInputProp = prompt("Enter Property: ")
+                    let userInputVal = prompt("Please enter the value:")
+                    let foundResults = people.filter(function (el) {
+                        try{
+                            if (el[userInputProp].includes(userInputVal)){
+                                return true;
+                            }
+                        } catch (error){
+                            console.error();
+                        }
+                        finally{
+                            if (el[userInputProp]===ParseInt(userInputVal)){
+                                return true;
+                            }
+                        }
+                    })
+                    return foundResults;
+                }
+                let resultsFound = searchByTraits(people).map(function(el) {
+                    return `${el.firstName} is a(n) ${el.occupation}`;
+                });
+                
+                // console.log(resultsFound)
+            searchResults = searchByTraits(resultsFound);
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -66,6 +90,7 @@ function mainMenu(person, people) {
         case "info":
             //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
             // HINT: Look for a person-object stringifier utility function to help
+
             let personInfo = displayPerson(person[0]);
             alert(personInfo);
             break;
