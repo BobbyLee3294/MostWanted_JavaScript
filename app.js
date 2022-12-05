@@ -96,7 +96,15 @@ function mainMenu(person, people) {
                                 return false;
                             }
                         }).map(function (person) {
-                            return `${person.firstName} ${person.lastName}`;
+                            let relationship = "";
+                            if (person.currentSpouse) {
+                                relationship = "spouse";
+                            } if (person.parents) {
+                                relationship = "parent";
+                            } if (condition) {
+                                relationship = "sibling"
+                            }
+                            return `${person.firstName} ${person.lastName}-${relationship}`;
                         })
                         .join("\n");
 
