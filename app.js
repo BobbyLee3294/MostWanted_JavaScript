@@ -77,16 +77,28 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             function findPersonFamily(person, people) {
-                let results = displayPeople(
-                    people.filter(
+                let results = people.filter(
                         function (element) {
-                            if (element.lastName == person.lastName) {
+                            if (element.id == person.id) {
+                                return false;   
+                            } if (element.id == person.currentSpouse) {
                                 return true;
-                            } else {
+                            } if (person.parents) {
+                                for (let i = 0; i < person.parents.length; i++) {
+                                    if (person.parents[i] == element.id) {
+                                        return true;   
+                                    }
+                                }
+                            } if (element.lastName == person.lastName) {
+                                return true;
+                            }
+                            else {
                                 return false;
                             }
+                        }).map(function (person) {
+                            return `${person.firstName} ${person.lastName}`;
                         })
-                );
+                        .join("\n");
 
                 return results;
             }
