@@ -108,6 +108,20 @@ function mainMenu(person, people) {
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
+            function findPersonDescendants(person, people) {
+                let personDescendants = displayPeople(person.parents);
+                people = [person];
+                if (personDescendants === 0) {
+                    return people;
+                }
+                for (let i = 0; i < person.length; i++) {
+                    people = people.concat(
+                        findPersonDescendants(person[i])
+                    );
+                }
+                return people;
+            }
+
             let personDescendants = findPersonDescendants(person[0], people);
             alert(personDescendants);
             break;
