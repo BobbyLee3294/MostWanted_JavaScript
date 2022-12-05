@@ -95,9 +95,8 @@ function mainMenu(person, people) {
                             else {
                                 return false;
                             }
-                        }).map(function (element, index, array) {
-                            let relationship = ;
-                            return `${person.firstName} ${person.lastName}-${relationship}`;
+                        }).map(function (person) {
+                            return `${person.firstName} ${person.lastName}`;
                         })
                         .join("\n");
 
