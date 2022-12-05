@@ -77,16 +77,17 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             function findPersonFamily(person, people) {
-                let results = displayPeople(
-                    people.filter(
+                let results = people.filter(
                         function (element) {
                             if (element.lastName == person.lastName) {
                                 return true;
                             } else {
                                 return false;
                             }
+                        }).map(function (person) {
+                            return `${person.firstName} ${person.lastName}`;
                         })
-                );
+                        .join("\n");
 
                 return results;
             }
@@ -96,6 +97,20 @@ function mainMenu(person, people) {
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
+            function findPersonDescendants(person, people) {
+                let personDescendants = displayPeople(person.parents);
+                people = [person];
+                if (personDescendants === 0) {
+                    return people;
+                }
+                for (let i = 0; i < person.length; i++) {
+                    people = people.concat(
+                        findPersonDescendants(person[i])
+                    );
+                }
+                return people;
+            }
+
             let personDescendants = findPersonDescendants(person[0], people);
             alert(personDescendants);
             break;
