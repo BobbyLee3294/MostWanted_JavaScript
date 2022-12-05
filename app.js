@@ -95,8 +95,9 @@ function mainMenu(person, people) {
                             else {
                                 return false;
                             }
-                        }).map(function (person) {
-                            return `${person.firstName} ${person.lastName}`;
+                        }).map(function (element, index, array) {
+                            let relationship = ;
+                            return `${person.firstName} ${person.lastName}-${relationship}`;
                         })
                         .join("\n");
 
@@ -109,17 +110,7 @@ function mainMenu(person, people) {
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             function findPersonDescendants(person, people) {
-                let personDescendants = displayPeople(person.parents);
-                people = [person];
-                if (personDescendants === 0) {
-                    return people;
-                }
-                for (let i = 0; i < person.length; i++) {
-                    people = people.concat(
-                        findPersonDescendants(person[i])
-                    );
-                }
-                return people;
+            
             }
 
             let personDescendants = findPersonDescendants(person[0], people);
@@ -237,3 +228,6 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+ /**
+  * This function is used to 
+  */
