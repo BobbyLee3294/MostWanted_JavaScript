@@ -73,6 +73,20 @@ function mainMenu(person, people) {
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
+            function findPersonFamily(person, people) {
+                let results = displayPeople(
+                    people.filter(
+                        function (element) {
+                            if (element.lastName == person.lastName) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        })
+                );
+
+                return results;
+            }
             let personFamily = findPersonFamily(person[0], people);
             alert(personFamily);
             break;
