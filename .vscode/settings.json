@@ -2,5 +2,8 @@
     "cSpell.words": [
         "stringifier",
         "stringifying"
-    ]
+    ],
+    "[css]": {
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
