@@ -66,9 +66,8 @@ function mainMenu(person, people) {
     case "info":
       //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
       // HINT: Look for a person-object stringifier utility function to help
-      displayPerson(person[0]);
       let personInfo = displayPerson(person[0]);
-      alert(personInfo);
+      app(people);
       break;
     case "family":
       //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
@@ -155,9 +154,7 @@ function displayPerson(person) {
   personInfo += `Weight: ${person.weight}\n`;
   personInfo += `Eye Color: ${person.eyeColor}\n`;
   personInfo += `Occupation: ${person.occupation}\n`;
-  personInfo += `Parents: ${person.parents}\n`;
-  personInfo += `Current Spouse: ${person.currentSpouse}\n`;
-
+  personInfo += `ID #: ${person.id}`;
   alert(personInfo);
 }
 // End of displayPerson()
@@ -201,8 +198,12 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function name(params) {}
 function searchByTraits(people) {}
+
 function findPersonDescendants(person, people) {}
+
 function findPersonFamily(person, people) {
   let results = "";
   if (person.currentSpouse != null) {
@@ -215,7 +216,8 @@ function findPersonFamily(person, people) {
     results += foundParents;
     results += foundSiblings;
   }
-  console.log(`${results}`).join("\n");
+  // console.log(`${results}`);
+  return results;
 }
 
 function findPersonSpouse(person, people) {
@@ -226,7 +228,7 @@ function findPersonSpouse(person, people) {
       return false;
     }
   });
-  let spouse = `Spouse: ${results[0].firstName} ${results[0].lastName}`;
+  let spouse = `Spouse: \n\t${results[0].firstName} ${results[0].lastName}\n`;
   return spouse;
 }
 
@@ -236,26 +238,31 @@ function findPersonParents(person, people) {
       for (let i = 0; i < person.parents.length; i++) {
         if (person.parents[i] == element.id) {
           return true;
-        } else {
-          return false;
         }
       }
     }
   });
-  let parents = `Parents: ${results[0].firstName} ${results[0].lastName}`;
+  let parents = `Parents: \n\t${results[0].firstName} ${results[0].lastName}\n`;
+  if (results.length > 1) {
+    parents += `\n\t${results[1].firstName} ${results[1].lastName}`;
+  }
   return parents;
 }
 
 function findPersonSibling(person, people, parentArray) {
   let results = people.filter(function (element) {
-    parentArray.forEach((element) => {
-      if (element == person.parents[0]) {
-        return true;
-      } else {
+    for (let index = 0; index < parentArray.length; index++) {
+      if (element.id == person.id) {
         return false;
       }
-    });
+      if (element.parents[index] == person.parents[index]) {
+        return true;
+      }
+    }
   });
-  let siblings = `Siblings: ${results[0].firstName} ${results[0].lastName}`;
+  let siblings = `Siblings: \n\t${results[0].firstName} ${results[0].lastName}`;
+  if (results.length > 1) {
+    siblings += `\n\t${results[1].firstName} ${results[1].lastName}`;
+  }
   return siblings;
 }
