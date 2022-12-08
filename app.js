@@ -67,21 +67,20 @@ function mainMenu(person, people) {
       //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
       // HINT: Look for a person-object stringifier utility function to help
       let personInfo = displayPerson(person[0]);
-      app(people);
       break;
     case "family":
       //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
       // HINT: Look for a people-collection stringifier utility function to help
 
-      // let personFamily = findPersonFamily(person[0], people);
-      // alert(personFamily);
+      let personFamily = findPersonFamily(person[0], people);
+      alert(personFamily);
       break;
     case "descendants":
       //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
       // HINT: Review recursion lecture + demo for bonus user story
 
-      let personDescendants = findPersonDescendants(person[0], people);
-      alert(personDescendants);
+      // let personDescendants = findPersonDescendants(person[0], people);
+      // alert(personDescendants);
       break;
     case "restart":
       // Restart app() from the very beginning
@@ -89,7 +88,7 @@ function mainMenu(person, people) {
       break;
     case "test":
       // used to test out newly created functions
-      let testResults = findPersonFamily(person[0], people);
+      let testResults = findPersonDescendants(person[0], people);
       alert(testResults);
       break;
     case "quit":
@@ -202,8 +201,47 @@ function chars(input) {
 function name(params) {}
 function searchByTraits(people) {}
 
-function findPersonDescendants(person, people) {}
+/**
+ * This function looks for the located person's children, if they have any.
+ * It uses the helper function findChildren()
+ * @param {Object} person An object that contains the located person's information
+ * @param {Array} people The collection of person-objects
+ * @returns {String} The names of the located person's children in text form
+ */
+function findPersonDescendants(person, people) {
+  let results = "";
+  if (person.parents[0]) {
+    let foundResults = findChildren(person, people);
+    return foundResults;
+  }
+  console.log(`${results}`);
+  // return results;
+}
 
+/**
+ * helper function for findPersonDescendants() that recursively retrieves nested collection items and returns a new string
+ * that contains the names of the children of the located person
+ * @param {Object} person An object with nested properties
+ * @param {Array} people  The collection of objects
+ * @return {String}       A string value that contains the the names of the located person's children
+ */
+function findChildren(person, people) {
+  let foundChildren = (person) => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+  }
+}
+/**
+ * Function used to find the located person's immediate family members and displays their names and their relation to the found person
+ * It uses three helper functions for each group of relationship (parents, spouse, siblings)
+ * @param {Object} person An object that contains the located person's properties and values
+ * @param {Array} people The collection of person-objects
+ * @returns {String}     The names of all relatives that were returned from the helper functions
+ */
 function findPersonFamily(person, people) {
   let results = "";
   if (person.currentSpouse != null) {
@@ -220,6 +258,12 @@ function findPersonFamily(person, people) {
   return results;
 }
 
+/**
+ * Helper function used in findPersonFamily used for finding the spouse of the located person
+ * @param {Object} person An object containing the located person's information
+ * @param {Array} people The collection of person-objects
+ * @returns {String} The name of the located person's spouse in text form
+ */
 function findPersonSpouse(person, people) {
   let results = people.filter(function (element) {
     if (element.id == person.currentSpouse) {
@@ -232,6 +276,12 @@ function findPersonSpouse(person, people) {
   return spouse;
 }
 
+/**
+ *Helper function used in findPersonFamily used for finding the parents of the located person, if available
+ * @param {Object} person An object containing the located person's information
+ * @param {Array} people The collection of objects
+ * @returns {String}     The name(s) of the located person's parent(s) in text form
+ */
 function findPersonParents(person, people) {
   let results = people.filter(function (element) {
     if (person.parents) {
@@ -249,6 +299,13 @@ function findPersonParents(person, people) {
   return parents;
 }
 
+/**
+ * Helper function used in findPersonFamily used for finding the siblings of the located person
+ * @param {Object} person An object containing the located person's information
+ * @param {Array} people The collection of person-objects
+ * @param {element} parentArray The value from the located person's parents property
+ * @returns {String} The names of the located person's siblings in text form
+ */
 function findPersonSibling(person, people, parentArray) {
   let results = people.filter(function (element) {
     for (let index = 0; index < parentArray.length; index++) {
