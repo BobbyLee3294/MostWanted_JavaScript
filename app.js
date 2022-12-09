@@ -198,42 +198,63 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function name(params) {}
-function searchByTraits(people) {}
+/**
+ * This function filters through the given array to find people based on the properties and values entered in by the user.
+ * It can take a single property(trait) or multiple properties. It returns a new array with the person-objects matched from the property-value input.
+ * @param {Array} people The given collection of person-objects
+ * @return {Array}       A new collection of person-objects given based on the user's input
+ */
+function searchByTraits(people) {
+  let userProperties = promptFor(
+    " Please choose a trait(First Name, Last Name, Gender, Date of Birth, Height, Weight, Eye Color, Occupation, ID): ",
+    chars
+  );
+  let userValues = promptFor(
+    "Please enter value you are searching for: ",
+    chars
+  );
+  let foundResults = people
+    .filter(function (element) {
+      if (element.userProperties) {
+        if (element.userProperties.includes(userValues)) {
+          return true;
+        }
+      }
+    })
+    .map(function (element) {
+      return `${element.userProperties} ${element.userValues}`;
+    });
+  console.log(`${foundResults}`);
+  // return foundResults;
+}
 
 /**
  * This function looks for the located person's children, if they have any.
  * It uses the helper function findChildren()
  * @param {Object} person An object that contains the located person's information
  * @param {Array} people The collection of person-objects
- * @returns {String} The names of the located person's children in text form
+ * @param {Array} parentArray the collection of ids of the parents of the located person
+ * @return {Array} The objects found from the helper function
  */
-function findPersonDescendants(person, people) {
-  let results = "";
-  if (person.parents[0]) {
-    let foundResults = findChildren(person, people);
-    return foundResults;
-  }
-  console.log(`${results}`);
-  // return results;
-}
+function findPersonDescendants(person, people, parentArray) {}
 
 /**
  * helper function for findPersonDescendants() that recursively retrieves nested collection items and returns a new string
  * that contains the names of the children of the located person
  * @param {Object} person An object with nested properties
- * @param {Array} people  The collection of objects
+ * @param {Array} people   The collection of objects
  * @return {String}       A string value that contains the the names of the located person's children
  */
-function findChildren(person, people) {
-  let foundChildren = (person) => {
-    try {
-      
-    } catch (error) {
-      
-    }
+function findChildren(person, array = []) {
+  let foundChildren = person.parents;
+  array = [Object];
+  if (person.parents === 0) {
+    return array;
   }
+  for (let i = 0; i < foundChildren.length; i++) {
+    array = array.concat(findChildren(foundChildren[i]));
   }
+  return array;
 }
 /**
  * Function used to find the located person's immediate family members and displays their names and their relation to the found person
