@@ -191,8 +191,11 @@ function yesNo(input) {
  * @returns {Boolean}           Default validation -- no logic yet.
  */
 function chars(input) {
+  // if (input.match()) {
+
   return true; // Default validation only
 }
+
 // End of chars()
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
@@ -205,27 +208,30 @@ function chars(input) {
  * @return {Array}       A new collection of person-objects given based on the user's input
  */
 function searchByTraits(people) {
-  let userProperties = promptFor(
-    " Please choose a trait(First Name, Last Name, Gender, Date of Birth, Height, Weight, Eye Color, Occupation, ID): ",
-    chars
-  );
-  let userValues = promptFor(
-    "Please enter value you are searching for: ",
-    chars
-  );
+  let userProperties = prompt(
+    " Please choose any catergory followed by a comma(`,`) (First Name, Last Name, Gender, Date of Birth, Height, Weight, Eye Color, Occupation, ID): "
+  ).trim(",");
+  let userValues = prompt("Please enter value you are searching for: ");
   let foundResults = people
     .filter(function (element) {
-      if (element.userProperties) {
-        if (element.userProperties.includes(userValues)) {
-          return true;
-        }
+      if (
+        element[userProperties].includes(userValues) ||
+        element[userProperties] === parseInt(userValues)
+      ) {
+        return true;
       }
     })
     .map(function (element) {
-      return `${element.userProperties} ${element.userValues}`;
-    });
-  console.log(`${foundResults}`);
-  // return foundResults;
+      return `${element.firstName} ${element.lastName}`;
+    })
+    .join("\n");
+  while (
+    (userProperties >= 1 && userProperties != null) ||
+    userValues != null
+  ) {
+    // console.log(`${foundResults}`);
+    alert(foundResults);
+  }
 }
 
 /**
