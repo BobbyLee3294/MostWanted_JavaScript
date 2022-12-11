@@ -210,28 +210,34 @@ function chars(input) {
 function searchByTraits(people) {
   let userProperties = prompt(
     " Please choose any catergory followed by a comma(`,`) (First Name, Last Name, Gender, Date of Birth, Height, Weight, Eye Color, Occupation, ID): "
-  ).trim(",");
-  let userValues = prompt("Please enter value you are searching for: ");
-  let foundResults = people
-    .filter(function (element) {
-      if (
-        element[userProperties].includes(userValues) ||
-        element[userProperties] === parseInt(userValues)
-      ) {
-        return true;
-      }
-    })
-    .map(function (element) {
-      return `${element.firstName} ${element.lastName}`;
-    })
-    .join("\n");
-  while (
-    (userProperties >= 1 && userProperties != null) ||
-    userValues != null
-  ) {
-    // console.log(`${foundResults}`);
+  ).split(",");
+  let userValues = prompt("Please enter value you are searching for: ").split(
+    ","
+  );
+  do {
+    let foundResults = people
+      .filter(function (element) {
+        for (let i = 0; i < userProperties.length; i++) {
+          try {
+            if (element[userProperties[i]].includes(userValues[i])) {
+              return true;
+            }
+          } catch (error) {
+            console.log(error);
+          } finally {
+            if (element[userProperties[i]] === parseInt(userValues[i])) {
+              return true;
+            }
+          }
+        }
+      })
+      .map(function (element) {
+        return `Here are the results:\n\t${element.firstName} ${element.lastName}`;
+      })
+      .join("\n\t");
+    //console.log(`${foundResults}`);
     alert(foundResults);
-  }
+  } while (userProperties.length <= 1);
 }
 
 /**
