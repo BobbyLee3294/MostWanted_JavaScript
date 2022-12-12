@@ -79,8 +79,8 @@ function mainMenu(person, people) {
       //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
       // HINT: Review recursion lecture + demo for bonus user story
 
-      // let personDescendants = findPersonDescendants(person[0], people);
-      // alert(personDescendants);
+      let personDescendants = findPersonDescendants(person[0], people);
+      alert(personDescendants);
       break;
     case "restart":
       // Restart app() from the very beginning
@@ -248,7 +248,11 @@ function searchByTraits(people) {
  * @param {Array} parentArray the collection of ids of the parents of the located person
  * @return {Array} The objects found from the helper function
  */
-function findPersonDescendants(person, people, parentArray) {}
+function findPersonDescendants(person, people, parentArray) {
+  let tempChildren = findChildren(person, people, parentArray);
+  console.log(`${tempChildren}`);
+  // alert(tempChildren);
+}
 
 /**
  * helper function for findPersonDescendants() that recursively retrieves nested collection items and returns a new string
@@ -259,8 +263,8 @@ function findPersonDescendants(person, people, parentArray) {}
  */
 function findChildren(person, array = []) {
   let foundChildren = person.parents;
-  array = [Object];
-  if (person.parents === 0) {
+  array = [person];
+  if (foundChildren.length === 0) {
     return array;
   }
   for (let i = 0; i < foundChildren.length; i++) {
